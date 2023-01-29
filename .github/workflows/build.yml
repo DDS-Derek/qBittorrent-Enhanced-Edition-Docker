@@ -50,7 +50,7 @@ jobs:
             QBEE_TAG=${{ steps.set-version.outputs.QBEE_TAG }}
           tags: |
              ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:${{ steps.set-version.outputs.version }}
-             ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:latest_nevinee
+             ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:latest
 
   build2:
     name: iyuu
@@ -97,7 +97,7 @@ jobs:
             QBEE_TAG=${{ steps.set-version.outputs.QBEE_TAG }}
           tags: |
              ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:${{ steps.set-version.outputs.version }}-iyuu
-             ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:latest_nevinee-iyuu
+             ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:latest-iyuu
 
   job1:
     needs: [build1, build2]
