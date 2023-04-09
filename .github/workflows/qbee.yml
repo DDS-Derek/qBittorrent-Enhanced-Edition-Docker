@@ -35,7 +35,7 @@ jobs:
 
       - 
         name: Buildx
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: ./${{ steps.set-version.outputs.QBEE_TAG }}
           file: ./${{ steps.set-version.outputs.QBEE_TAG }}/nevinee.Dockerfile
@@ -81,7 +81,7 @@ jobs:
 
       - 
         name: Buildx
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: ./${{ steps.set-version.outputs.QBEE_TAG }}
           file: ./${{ steps.set-version.outputs.QBEE_TAG }}/nevinee.iyuu.Dockerfile
