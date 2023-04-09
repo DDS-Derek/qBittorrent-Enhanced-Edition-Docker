@@ -16,11 +16,10 @@ jobs:
       - name: Set Version
         id: set-version
         run: |
-          qbitorrent_tag=$(echo ${GITHUB_REF:10} | cut -f 1 -d "_")
+          QB_TAG=$(echo ${GITHUB_REF:10} | cut -f 1 -d "_")
           QBEE_TAG=$(echo ${GITHUB_REF:10} | cut -f 2 -d "_")
-          echo "::set-output name=qbitorrent_tag::${qbitorrent_tag}"
-          echo "::set-output name=QBEE_TAG::${QBEE_TAG}"
-          echo "::set-output name=version::${QBEE_TAG}"
+          echo "QB_TAG=${QB_TAG}" >> $GITHUB_OUTPUT
+          echo "QBEE_TAG=${QBEE_TAG}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -38,18 +37,18 @@ jobs:
         name: Buildx
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: nevinee.Dockerfile
+          context: ./${{ steps.set-version.outputs.QBEE_TAG }}
+          file: ./${{ steps.set-version.outputs.QBEE_TAG }}/nevinee.Dockerfile
           platforms: |
             linux/amd64
             linux/arm/v7
             linux/arm64/v8
           push: true
           build-args: |
-            qbitorrent_tag=${{ steps.set-version.outputs.qbitorrent_tag }}
+            qbitorrent_tag=${{ steps.set-version.outputs.QB_TAG }}
             QBEE_TAG=${{ steps.set-version.outputs.QBEE_TAG }}
           tags: |
-             ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:${{ steps.set-version.outputs.version }}
+             ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:${{ steps.set-version.outputs.QB_TAG }}
              ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:latest
 
   build2:
@@ -63,11 +62,10 @@ jobs:
       - name: Set Version
         id: set-version
         run: |
-          qbitorrent_tag=$(echo ${GITHUB_REF:10} | cut -f 1 -d "_")
+          QB_TAG=$(echo ${GITHUB_REF:10} | cut -f 1 -d "_")
           QBEE_TAG=$(echo ${GITHUB_REF:10} | cut -f 2 -d "_")
-          echo "::set-output name=qbitorrent_tag::${qbitorrent_tag}"
-          echo "::set-output name=QBEE_TAG::${QBEE_TAG}"
-          echo "::set-output name=version::${QBEE_TAG}"
+          echo "QB_TAG=${QB_TAG}" >> $GITHUB_OUTPUT
+          echo "QBEE_TAG=${QBEE_TAG}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -85,18 +83,18 @@ jobs:
         name: Buildx
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: nevinee.iyuu.Dockerfile
+          context: ./${{ steps.set-version.outputs.QBEE_TAG }}
+          file: ./${{ steps.set-version.outputs.QBEE_TAG }}/nevinee.iyuu.Dockerfile
           platforms: |
             linux/amd64
             linux/arm/v7
             linux/arm64/v8
           push: true
           build-args: |
-            qbitorrent_tag=${{ steps.set-version.outputs.qbitorrent_tag }}
+            qbitorrent_tag=${{ steps.set-version.outputs.QB_TAG }}
             QBEE_TAG=${{ steps.set-version.outputs.QBEE_TAG }}
           tags: |
-             ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:${{ steps.set-version.outputs.version }}-iyuu
+             ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:${{ steps.set-version.outputs.QB_TAG }}-iyuu
              ${{ secrets.DOCKER_USERNAME }}/qbittorrentee:latest-iyuu
 
   job1:
@@ -105,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
@@ -114,7 +112,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker Hub Description
-        uses: peter-evans/dockerhub-description@v2
+        uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
