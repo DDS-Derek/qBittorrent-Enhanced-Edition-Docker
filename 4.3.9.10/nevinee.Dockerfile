@@ -2,7 +2,7 @@
 ARG qbitorrent_tag
 #######################################
 
-FROM alpine:3.17 AS Build
+FROM alpine:3.18 AS Build
 
 ############### Version ###############
 ARG QBEE_TAG
