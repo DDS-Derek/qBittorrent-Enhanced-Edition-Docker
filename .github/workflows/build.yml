@@ -1,0 +1,142 @@
+name: Build qBittorrent-Enhanced-Edition nevinee
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - info.json
+
+jobs:
+  build1:
+    name: none
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@master
+
+      - name: Set Version
+        id: set-version
+        run: |
+          VERSION_GET=$(jq -r '.[0].build' info.json)
+
+          QBEE_TAG=$(jq -r ".[${VERSION_GET}].qbittorrent_enhanced_edition_version" info.json | sed 's/v//')
+          QB_TAG=$(jq -r ".[${VERSION_GET}].qbittorrent_version" info.json | sed 's/v//')
+          AMD64_NAME=$(jq -r ".[${VERSION_GET}].arch.amd64.file_name" info.json)
+          ARM64V8_NAME=$(jq -r ".[${VERSION_GET}].arch.arm64v8.file_name" info.json)
+          ARMV7_NAME=$(jq -r ".[${VERSION_GET}].arch.armv7.file_name" info.json)
+
+          echo "QB_TAG=${QB_TAG}" >> $GITHUB_OUTPUT
+          echo "QBEE_TAG=${QBEE_TAG}" >> $GITHUB_OUTPUT
+          echo "AMD64_NAME=${AMD64_NAME}" >> $GITHUB_OUTPUT
+          echo "ARM64V8_NAME=${ARM64V8_NAME}" >> $GITHUB_OUTPUT
+          echo "ARMV7_NAME=${ARMV7_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/qbittorrentee
+          tags: |
+            type=raw,value=${{ steps.set-version.outputs.QB_TAG }}
+            type=raw,value=latest
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - 
+        name: Buildx
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: nevinee.Dockerfile
+          platforms: |
+            linux/amd64
+            linux/arm/v7
+            linux/arm64/v8
+          push: true
+          build-args: |
+            QB_TAG=${{ steps.set-version.outputs.QB_TAG }}
+            QBEE_TAG=${{ steps.set-version.outputs.QBEE_TAG }}
+            AMD64_NAME=${{ steps.set-version.outputs.AMD64_NAME }}
+            ARM64V8_NAME=${{ steps.set-version.outputs.ARM64V8_NAME }}
+            ARMV7_NAME=${{ steps.set-version.outputs.ARMV7_NAME }}
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+
+  build2:
+    name: iyuu
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@master
+
+      - name: Set Version
+        id: set-version
+        run: |
+          VERSION_GET=$(jq -r '.[0].build' info.json)
+
+          QBEE_TAG=$(jq -r ".[${VERSION_GET}].qbittorrent_enhanced_edition_version" info.json | sed 's/v//')
+          QB_TAG=$(jq -r ".[${VERSION_GET}].qbittorrent_version" info.json | sed 's/v//')
+          AMD64_NAME=$(jq -r ".[${VERSION_GET}].arch.amd64.file_name" info.json)
+          ARM64V8_NAME=$(jq -r ".[${VERSION_GET}].arch.arm64v8.file_name" info.json)
+          ARMV7_NAME=$(jq -r ".[${VERSION_GET}].arch.armv7.file_name" info.json)
+
+          echo "QB_TAG=${QB_TAG}" >> $GITHUB_OUTPUT
+          echo "QBEE_TAG=${QBEE_TAG}" >> $GITHUB_OUTPUT
+          echo "AMD64_NAME=${AMD64_NAME}" >> $GITHUB_OUTPUT
+          echo "ARM64V8_NAME=${ARM64V8_NAME}" >> $GITHUB_OUTPUT
+          echo "ARMV7_NAME=${ARMV7_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/qbittorrentee
+          tags: |
+            type=raw,value=${{ steps.set-version.outputs.QB_TAG }}-iyuu
+            type=raw,value=latest-iyuu
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - 
+        name: Buildx
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: nevinee.iyuu.Dockerfile
+          platforms: |
+            linux/amd64
+            linux/arm/v7
+            linux/arm64/v8
+          push: true
+          build-args: |
+            QB_TAG=${{ steps.set-version.outputs.QB_TAG }}
+            QBEE_TAG=${{ steps.set-version.outputs.QBEE_TAG }}
+            AMD64_NAME=${{ steps.set-version.outputs.AMD64_NAME }}
+            ARM64V8_NAME=${{ steps.set-version.outputs.ARM64V8_NAME }}
+            ARMV7_NAME=${{ steps.set-version.outputs.ARMV7_NAME }}
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
