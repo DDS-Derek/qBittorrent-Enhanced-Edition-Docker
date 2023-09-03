@@ -1,4 +1,4 @@
-name: Build qBittorrent-Enhanced-Edition nevinee
+name: Build & Release
 
 on:
   workflow_dispatch:
