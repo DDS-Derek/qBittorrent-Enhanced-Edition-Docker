@@ -9,6 +9,38 @@ on:
       - info.json
 
 jobs:
+  release:
+    runs-on: ubuntu-latest
+    name: Release
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+
+      - 
+        name: Set Version
+        id: set-version
+        run: |
+          VERSION_GET=$(jq -r '.[0].build' info.json)
+
+          QBEE_TAG=$(jq -r ".[${VERSION_GET}].qbittorrent_enhanced_edition_version" info.json | sed 's/v//')
+          QB_TAG=$(jq -r ".[${VERSION_GET}].qbittorrent_version" info.json | sed 's/v//')
+
+          echo "QB_TAG=${QB_TAG}" >> $GITHUB_OUTPUT
+          echo "QBEE_TAG=${QBEE_TAG}" >> $GITHUB_OUTPUT
+
+      -
+        name: Generate Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.set-version.outputs.QB_TAG }}-${{ steps.set-version.outputs.QBEE_TAG }}
+          name: ${{ steps.set-version.outputs.QB_TAG }}-${{ steps.set-version.outputs.QBEE_TAG }}
+          body: qBittorrent-Enhanced-Edition v${{ steps.set-version.outputs.QBEE_TAG }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build1:
     name: none
     runs-on: ubuntu-latest
