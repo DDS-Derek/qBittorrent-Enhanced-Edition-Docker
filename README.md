@@ -1,6 +1,6 @@
 # qBittorrent-Enhanced-Edition-Docker
 
-[![Build qBittorrent-Enhanced-Edition nevinee](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/build.yml/badge.svg)](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/build.yml) [![Docker Hub Description](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/docker_docs.yml/badge.svg)](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/docker_docs.yml)
+[![Build & Release](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/build.yml/badge.svg)](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/build.yml) [![Docker Docs](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/docker_docs.yml/badge.svg)](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/docker_docs.yml)
 
 由 nevinee 大佬的 qBittorrent 镜像改编的 qBittorrent Enhanced Edition 镜像，使用方法参考原镜像。
 
