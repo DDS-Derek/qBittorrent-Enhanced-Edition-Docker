@@ -1,5 +1,7 @@
 # qBittorrent-Enhanced-Edition-Docker
 
+本镜像为增强版qBittorrent，非官方qBittorrent，使用者请自行承担风险！
+
 [![Build & Release](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/build.yml/badge.svg)](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/build.yml) [![Docker Docs](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/docker_docs.yml/badge.svg)](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/docker_docs.yml)
 
 由 nevinee 大佬的 qBittorrent 镜像改编的 qBittorrent Enhanced Edition 镜像，使用方法参考原镜像。
