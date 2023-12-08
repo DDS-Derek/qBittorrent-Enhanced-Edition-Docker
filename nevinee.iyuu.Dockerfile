@@ -1,6 +1,6 @@
 ARG QB_TAG
 
-FROM alpine:3.18 AS Build
+FROM alpine:3.19 AS Build
 
 ARG QBEE_TAG
 ARG AMD64_NAME
