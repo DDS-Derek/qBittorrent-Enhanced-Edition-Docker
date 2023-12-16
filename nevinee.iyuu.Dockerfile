@@ -1,27 +1,35 @@
 ARG QB_TAG
-
-FROM alpine:3.19 AS Build
-
-ARG QBEE_TAG
-ARG AMD64_NAME
-ARG ARM64V8_NAME
-ARG ARMV7_NAME
-
-WORKDIR /qbittorrent
-
-RUN apk add bash wget curl unzip zip jq
-
-RUN ARCH=$(uname -m); \
-    if [[ ${ARCH} == "x86_64" ]]; \
-    then ARCH=${AMD64_NAME}; \
-    elif [[ ${ARCH} == "aarch64" ]]; \
-    then ARCH=${ARM64V8_NAME}; \
-    elif [[ ${ARCH} == "armv7l" ]]; \
-    then ARCH=${ARMV7_NAME}; \
-    fi && \
-    curl -L -o ${PWD}/qbittorrentee.zip https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases/download/release-${QBEE_TAG}/${ARCH} && \
-    unzip qbittorrentee.zip
-
-FROM nevinee/qbittorrent:${QB_TAG}-iyuu
-
-COPY --from=Build --chmod=755 /qbittorrent/qbittorrent-nox /usr/bin/qbittorrent-nox
+FROM ddsderek/qbittorrentee:${QB_TAG}
+ENV IYUU_REPO_URL=https://gitee.com/ledc/iyuuplus.git
+RUN apk add --no-cache \
+       composer \
+       git \
+       libressl \
+       tar \
+       unzip \
+       zip \
+       php81 \
+       php81-curl \
+       php81-dom \
+       php81-json \
+       php81-mbstring \
+       php81-openssl \
+       php81-opcache \
+       php81-pdo \
+       php81-pdo_sqlite \
+       php81-phar \
+       php81-pcntl \
+       php81-posix \
+       php81-simplexml \
+       php81-sockets \
+       php81-session \
+       php81-zip \
+       php81-zlib \
+       php81-xml \
+    && git config --global pull.ff only \
+    && git config --global --add safe.directory /iyuu \
+    && git clone --depth 1 https://github.com/ledccn/IYUUPlus.git /iyuu \
+    && echo -e "upload_max_filesize=100M\npost_max_size=108M\nmemory_limit=1024M\ndate.timezone=${TZ}" > /etc/php81/conf.d/99-overrides.ini \
+    && rm -rf /var/cache/apk/* /tmp/*
+COPY root2 /
+VOLUME ["/iyuu"]
