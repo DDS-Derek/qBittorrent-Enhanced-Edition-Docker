@@ -29,6 +29,16 @@ jobs:
           echo "QB_TAG=${QB_TAG}" >> $GITHUB_OUTPUT
           echo "QBEE_TAG=${QBEE_TAG}" >> $GITHUB_OUTPUT
 
+          curl -L \
+            -o qbittorrent_enhanced_qt6_x64_setup.exe \
+            https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases/download/release-${QBEE_TAG}/qbittorrent_enhanced_${QBEE_TAG}_qt6_x64_setup.exe
+          curl -L \
+            -o qbittorrent_enhanced_x64_setup.exe \
+            https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases/download/release-${QBEE_TAG}/qbittorrent_enhanced_${QBEE_TAG}_x64_setup.exe
+          curl -L \
+            -o qbittorrent_enhanced_setup.exe \
+            https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases/download/release-${QBEE_TAG}/qbittorrent_enhanced_${QBEE_TAG}_setup.exe
+
       -
         name: Generate Release
         uses: softprops/action-gh-release@v1
@@ -38,6 +48,10 @@ jobs:
           body: qBittorrent-Enhanced-Edition v${{ steps.set-version.outputs.QBEE_TAG }}
           draft: false
           prerelease: false
+          files: |
+            qbittorrent_enhanced_qt6_x64_setup.exe
+            qbittorrent_enhanced_x64_setup.exe
+            qbittorrent_enhanced_setup.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
