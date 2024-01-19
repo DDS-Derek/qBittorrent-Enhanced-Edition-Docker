@@ -3,6 +3,24 @@
         "build": "1"
     },
     {
+        "qbittorrent_enhanced_edition_version": "v4.6.3.10",
+        "qbittorrent_version": "v4.6.3",
+        "arch": {
+            "amd64": {
+                "build": true,
+                "file_name": "qbittorrent-enhanced-nox_x86_64-linux-musl_static.zip"
+            },
+            "arm64v8": {
+                "build": true,
+                "file_name": "qbittorrent-enhanced-nox_aarch64-linux-musl_static.zip"
+            },
+            "armv7": {
+                "build": true,
+                "file_name": "qbittorrent-enhanced-nox_arm-linux-musleabi_static.zip"
+            }
+        }
+    },
+    {
         "qbittorrent_enhanced_edition_version": "v4.6.2.10",
         "qbittorrent_version": "v4.6.2",
         "arch": {
