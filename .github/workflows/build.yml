@@ -41,7 +41,7 @@ jobs:
 
       -
         name: Generate Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.set-version.outputs.QB_TAG }}-${{ steps.set-version.outputs.QBEE_TAG }}
           name: ${{ steps.set-version.outputs.QB_TAG }}-${{ steps.set-version.outputs.QBEE_TAG }}
