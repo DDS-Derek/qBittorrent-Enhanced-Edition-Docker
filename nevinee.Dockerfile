@@ -1,4 +1,4 @@
-FROM alpine:3.19 AS Build
+FROM alpine:3.20 AS Build
 
 ARG QBEE_TAG
 ARG AMD64_NAME
@@ -20,7 +20,7 @@ RUN ARCH=$(uname -m); \
     curl -L -o ${PWD}/qbittorrentee.zip https://github.com/c0re100/qBittorrent-Enhanced-Edition/releases/download/release-${QBEE_TAG}/${ARCH} && \
     unzip qbittorrentee.zip
 
-FROM alpine:3.19
+FROM alpine:3.20
 ENV QBT_PROFILE=/home/qbittorrent \
     TZ=Asia/Shanghai \
     PUID=1000 \
