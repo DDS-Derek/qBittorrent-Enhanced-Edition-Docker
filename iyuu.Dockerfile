@@ -1,5 +1,6 @@
-ARG QB_TAG
-FROM ddsderek/qbittorrentee:${QB_TAG}
+ARG VERSION
+ARG REPO_NAME
+FROM ${REPO_NAME}:${VERSION}
 ENV IYUU_REPO_URL=https://gitee.com/ledc/iyuuplus.git
 RUN apk add --no-cache \
        composer \

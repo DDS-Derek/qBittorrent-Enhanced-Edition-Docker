@@ -1,0 +1,11 @@
+{
+    "DockerHub_Repo_Name": "qbittorrentee",
+    "Github_Repo": "DDS-Derek/qBittorrent-Enhanced-Edition-Docker",
+    "Branches": "master",
+    "Version_qbee": "$(jq -r '.qBittorrentee_Version' version.json)",
+    "Version_qb": "$(jq -r '.qBittorrent_Version' version.json)",
+    "Dockerfile_Name": "Dockerfile",
+    "ARCH": "linux/amd64,linux/arm64/v8,linux/arm/v7",
+    "ARG": "--build-arg QBITTORRENTEE_VERSION=${Version_qbee}",
+    "TAG": "--tag ${Dockerhub_Username}/${DockerHub_Repo_Name}:${Version_qb} --tag ${Dockerhub_Username}/${DockerHub_Repo_Name}:latest"
+}
