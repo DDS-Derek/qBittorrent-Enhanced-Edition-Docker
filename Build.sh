@@ -131,7 +131,7 @@ docker exec -it ${Builder_Name} \
     --label "org.opencontainers.image.url=${image_url}" \
     --label "org.opencontainers.image.version=${image_version}-iyuu" \
     --platform ${ARCH} \
-    --tag ${Dockerhub_Username}/${DockerHub_Repo_Name}:${Version}-iyuu \
+    --tag ${Dockerhub_Username}/${DockerHub_Repo_Name}:${image_version}-iyuu \
     --tag ${Dockerhub_Username}/${DockerHub_Repo_Name}:latest-iyuu \
     --push \
     .
