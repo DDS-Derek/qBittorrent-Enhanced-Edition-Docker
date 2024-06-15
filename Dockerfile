@@ -31,7 +31,8 @@ RUN mkdir -p /tmp/qbittorrent \
     && cmake --build release -j $(nproc) \
     && cmake --install release \
     && ls -al /usr/local/bin/ \
-    && qbittorrent-nox --help
+    && qbittorrent-nox --help \
+    && qbittorrent-nox --version
 RUN echo "Copy to /out" \
     && strip /usr/local/lib/libtorrent-rasterbar.so.* \
     && strip /usr/local/bin/qbittorrent-nox \

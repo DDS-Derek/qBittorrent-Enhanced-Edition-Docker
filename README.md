@@ -2,9 +2,26 @@
 
 # 本镜像为增强版qBittorrent，非官方qBittorrent，使用者请自行承担风险！
 
-[![Build & Release](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/build.yml/badge.svg)](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/build.yml) [![Docker Docs](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/docker_docs.yml/badge.svg)](https://github.com/DDS-Derek/qBittorrent-Enhanced-Edition-Docker/actions/workflows/docker_docs.yml)
+![Docker Pulls](https://img.shields.io/docker/pulls/ddsderek/qbittorrentee.svg?style=for-the-badge&label=pulls&logo=docker)
 
-由 nevinee 大佬的 qBittorrent 镜像改编的 qBittorrent Enhanced Edition 镜像，使用方法参考原镜像。
+由 nevinee 大佬的 qBittorrent 镜像改编的 qBittorrent Enhanced Edition 镜像。
+
+此项目功能与使用方法和`nevinee/qbittorrent`一致，故详细功能和使用教程[点击这里](https://evine.win/p/docker-install-qbittorrent/)查看。
+
+## 架构
+
+| Architecture | Tag            |
+| :----------: | :------------: |
+| x86-64       | latest   |
+| arm64        | latest |
+| arm32        | latest |
+
+## 标签
+
+1. **`4.x.x` , `latest`**: 标签以纯数字版本号命名，这是qBittorrentee正式发布的稳定版，其中最新的版本额外增加`latest`标签。
+  
+2. **`4.x.x-iyuu` , `latest-iyuu` , `iyuu`**: 标签中带有`iyuu`字样，基于qBittorrentee稳定版集成了[IYUUPlus](https://github.com/ledccn/IYUUPlus)，其中最新的版本额外增加`latest-iyuu`和`iyuu`标签，自动安装好[IYUUPlus](https://github.com/ledccn/IYUUPlus)，自动设置好下载器，主要针对不会设置下载器的用户。
+
 
 ## 部署
 
