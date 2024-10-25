@@ -117,24 +117,6 @@ docker exec -it ${Builder_Name} \
     ${TAG} \
     --push \
     .
-docker exec -it ${Builder_Name} \
-    docker buildx build \
-    --build-arg VERSION=${Version_qb} \
-    --build-arg REPO_NAME=${Dockerhub_Username}/${DockerHub_Repo_Name} \
-    --file iyuu.${Dockerfile_Name} \
-    --label "org.opencontainers.image.created=${image_created}" \
-    --label "org.opencontainers.image.description=${image_description}" \
-    --label "org.opencontainers.image.licenses=${image_licenses}" \
-    --label "org.opencontainers.image.revision=${image_revision}" \
-    --label "org.opencontainers.image.source=${image_source}" \
-    --label "org.opencontainers.image.title=${image_title}" \
-    --label "org.opencontainers.image.url=${image_url}" \
-    --label "org.opencontainers.image.version=${image_version}-iyuu" \
-    --platform ${ARCH} \
-    --tag ${Dockerhub_Username}/${DockerHub_Repo_Name}:${image_version}-iyuu \
-    --tag ${Dockerhub_Username}/${DockerHub_Repo_Name}:latest-iyuu \
-    --push \
-    .
 }
 
 get_info
