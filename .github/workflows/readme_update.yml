@@ -37,7 +37,7 @@ jobs:
           docker cp test:/usr/bin/dependency-version.json ./dependency-version.json
 
       -
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: 'chore(deps): update dependency version'
           branch: master
