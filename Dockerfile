@@ -1,4 +1,4 @@
-FROM alpine:3.23 AS builder
+FROM alpine:3.24 AS builder
 RUN apk upgrade \
     && apk add --no-cache \
        boost-dev \
@@ -46,7 +46,7 @@ RUN echo "Write dependency version" \
     && echo -e '{\n    "OpenSSL": "'$OpenSSL'",\n    "Boost": "'$Boost'",\n    "Libtorrent": "'$Libtorrent'",\n    "Qt": "'$Qt'",\n    "zlib": "'$zlib'"\n}' > /out/usr/bin/dependency-version.json \
     && rm -rf /tmp/* /var/cache/apk/*
 
-FROM alpine:3.23 AS app
+FROM alpine:3.24 AS app
 ENV QBT_PROFILE=/home/qbittorrent \
     TZ=Asia/Shanghai \
     PUID=1000 \
